@@ -15,12 +15,8 @@ namespace Matrix
             SqMatrix a = new SqMatrix(n);
             a.Input();
             Console.WriteLine($"\nИсходная матрица:");
-            a.Print();
-            for (int i = 0; i < a.GetN(); i++)
-            {
-                Console.WriteLine($"Минорная матрица #{i+1}") ;
-                a.GetMinor(a, i, a.GetN());
-            }
+            a.Print();        
+            Console.WriteLine($"Детерминант = {MatrixWork.Determinant(a)}");
             Console.ReadKey();
         }
         
