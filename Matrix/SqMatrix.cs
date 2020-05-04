@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,13 +50,32 @@ namespace Matrix
                 int j = 0;
                 foreach (var item in str)
                 {
-                    this.Table[i, j++] = Convert.ToInt32(item);
+                    Table[i, j++] = Convert.ToInt32(item);
                 }                                
                 
             }
         }
+        public void FileInput(string path)
+        {
 
-    
+            using (StreamReader ts = new StreamReader(path))
+            {
+                int i = 0;
+                ts.ReadLine();
+                while (ts.Peek() >= 0)
+                {
+                    var str = ts.ReadLine().Split(' ');
+                    int j = 0;
+                    foreach (var item in str)
+                    {
+                        Table[i, j++] = Convert.ToInt32(item);
+                    }
+                    ++i;
+                }
+            };
+        }
+
+
 
     }
 }
