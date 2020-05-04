@@ -10,6 +10,11 @@ namespace Matrix
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Введите порядок матрицы:");
+            var n = Int32.Parse(Console.ReadLine());
+            SqMatrix a = new SqMatrix(n);
+            //a.Input();
+            a.Print();
         }
     }
 }
