@@ -73,13 +73,14 @@ namespace Matrix
             {
                 for (int i = 0; i < n; i++)
                 {
+                    int result = array.Table[0, i] * Determinant(GetMinor(array, i));
                     if (i%2 == 0)
                     {
-                        det += array.Table[0,i]*Determinant(GetMinor(array, i));
+                        det += result;
                     }
                     else
                     {
-                        det -= array.Table[0, i]*Determinant(GetMinor(array, i));
+                        det -= result;
                     }
                                    
                 }
@@ -88,19 +89,31 @@ namespace Matrix
 
         }
 
-        public static void StartCalc(SqMatrix array)
-        {
-           int det = Determinant(array);
-           array.Print();
-           Console.WriteLine($"Детерминант = {det}");
-        }
 
-        public static async void DeterminantAsync(SqMatrix array)
+   
+
+        public static async void DeterminantAsync(List<SqMatrix> lstMatrix)
         {
+            var result = new List<int>();
+            foreach (var matrix in lstMatrix)
+            {
+                var task = Task<int>.Run(() => Determinant(matrix));
+                result.Add(await task);
+            }
             
-            await  Task.Run(() => StartCalc(array));
+            Console.WriteLine($"Сумма определителей = {result.Sum()}");
         }
+        public static  void DeterminantSync(List<SqMatrix> lstMatrix)
+        {
+            var result = new List<long>();
+            foreach (var matrix in lstMatrix)
+            {
+                result.Add(Determinant(matrix));
+                
+            }
 
+            Console.WriteLine($"Сумма определителей = {result.Sum()}");
+        }
 
         public static void Generate( string path)
         {
@@ -108,7 +121,7 @@ namespace Matrix
             Random rnd = new Random(DateTime.Now.Millisecond);
 
             //!!!!!! ЗДЕСЬ ЗАДАЕМ ПОРЯДОК ГЕРЕРИРУЕМЫХ МАТРИЦ!!!!!!!!!!!
-            int n = rnd.Next(5, 11);
+            int n = rnd.Next(9, 11);
             
             int[,] a = new int[n, n];
             using (StreamWriter sw = new StreamWriter(path))
