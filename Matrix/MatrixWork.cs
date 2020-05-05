@@ -89,20 +89,25 @@ namespace Matrix
 
         }
 
-
-   
-
+        /// <summary>
+        /// Принимает список матриц и вычисляет сумму определителей aсинхронно
+        /// </summary>
+        /// <param name="lstMatrix">Список обектов матриц SqMatrix</param>
         public static async void DeterminantAsync(List<SqMatrix> lstMatrix)
         {
-            var result = new List<int>();
+            var result = new List<long>();
             foreach (var matrix in lstMatrix)
             {
                 var task = Task<int>.Run(() => Determinant(matrix));
                 result.Add(await task);
             }
             
-            Console.WriteLine($"Сумма определителей = {result.Sum()}");
+            Console.WriteLine($"Сумма определителей(асинхронно) = {result.Sum()}");
         }
+        /// <summary>
+        /// Принимает список матриц и вычисляет сумму определителей синхронно
+        /// </summary>
+        /// <param name="lstMatrix">Список обектов матриц SqMatrix</param>
         public static  void DeterminantSync(List<SqMatrix> lstMatrix)
         {
             var result = new List<long>();
@@ -112,10 +117,13 @@ namespace Matrix
                 
             }
 
-            Console.WriteLine($"Сумма определителей = {result.Sum()}");
+            Console.WriteLine($"Сумма определителей(синхронно)  = {result.Sum()}");
         }
-
-        public static void Generate( string path)
+        /// <summary>
+        /// Метод генерирует матрицу заданного порядка(n) и записывает в файл порядок и саму матрицу
+        /// </summary>
+        /// <param name="path">Путь к файлу для записи</param>
+        public static void Generate(string path)
         {
             Thread.Sleep(150);
             Random rnd = new Random(DateTime.Now.Millisecond);
@@ -145,7 +153,11 @@ namespace Matrix
             };
             
         }
-
+        /// <summary>
+        /// Читает возвращает прочитанную из файла матрицу в виде объекта SqMatrix
+        /// </summary>
+        /// <param name="path">Путь к файлу</param>
+        /// <returns>Объект SqMatrix</returns>
         public static SqMatrix ReadFromFile(string path)
         {
 
