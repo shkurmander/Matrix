@@ -14,14 +14,14 @@ namespace Matrix
         {
             List<SqMatrix> lst = new List<SqMatrix>();                              //Создаем список матриц
                         
-            /*for (int i = 1; i < 10; i++)                                          //генерируем матрицы
+            for (int i = 1; i < 10; i++)                                          //генерируем матрицы
             {
-                MatrixWork.Generate($@"c:\Matrix\matrix{i}.txt");
-            }*/
+                MatrixWork.Generate(Environment.CurrentDirectory + $@"matrix{i}.txt");
+            }
    
             for (int i = 1; i < 10; i++)                                             //Читаем матрицы из файлов в список
             {
-               lst.Add(MatrixWork.ReadFromFile($@"c:\Matrix\matrix{i}.txt"));
+               lst.Add(MatrixWork.ReadFromFile(Environment.CurrentDirectory + $@"matrix{i}.txt"));
             }
 
             //Расчет суммы определителей синхронно            
