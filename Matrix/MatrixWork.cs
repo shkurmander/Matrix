@@ -88,6 +88,19 @@ namespace Matrix
 
         }
 
+        public static void StartCalc(SqMatrix array)
+        {
+           int det = Determinant(array);
+           array.Print();
+           Console.WriteLine($"Детерминант = {det}");
+        }
+
+        public static async void DeterminantAsync(SqMatrix array)
+        {
+            
+            await  Task.Run(() => StartCalc(array));
+        }
+
 
         public static void Generate( string path)
         {
@@ -125,6 +138,7 @@ namespace Matrix
 
             using (StreamReader ts = new StreamReader(path))
             {
+                
                 int i = 0;
                 int n = Convert.ToInt32(ts.ReadLine());
                 SqMatrix matrix = new SqMatrix(n);
